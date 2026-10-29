@@ -1,6 +1,6 @@
 {
   "name": "kronos-apex-financial-os",
-  "private": true,
+  "private": false,
   "version": "1.0.0",
   "type": "module",
   "main": "./src/index.ts",
