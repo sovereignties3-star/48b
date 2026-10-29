@@ -1,0 +1,33 @@
+{
+  "version": 2,
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/index"
+    },
+    {
+      "source": "/api",
+      "destination": "/api/index"
+    },
+    {
+      "source": "/v3/(.*)",
+      "destination": "/api/index"
+    },
+    {
+      "source": "/intuit/(.*)",
+      "destination": "/api/index"
+    },
+    {
+      "source": "/mcp/(.*)",
+      "destination": "/api/index"
+    },
+    {
+      "source": "/openapi/(.*)",
+      "destination": "/api/index"
+    },
+    {
+      "source": "/((?!api/|v3/|intuit/|mcp/|openapi/|assets/|.*\\..*).*)",
+      "destination": "/index.html"
+    }
+  ]
+}

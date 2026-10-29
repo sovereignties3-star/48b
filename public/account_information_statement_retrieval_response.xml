@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:statementRetrievalResponse xmlns:ns2="http://com.citi.citiconnect/services/types/attachments/v1" xmlns="http://com.citi.citiconnect/services/types/citiconnect/v1" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+    <ns2:statementId>3f1c644b-fc3b-4a22-a2f1-4e8e2aba89e8</ns2:statementId>
+    <ns2:fileCheckSum>16c1e03ff5799f85b14e7fc3abf8817b0d742e51354ba3c899a117e15c7cf8213ee36cf353dbbfcf09683352eb2a0cd3eeabe88de7df0a8f9381b251518881a6</ns2:fileCheckSum>
+</ns2:statementRetrievalResponse>

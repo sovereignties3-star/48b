@@ -1,0 +1,660 @@
+swagger: '2.0'
+info:
+  title: Payment Services
+  description: |-
+    CitiConnect API [Application Programming Interface] services allow you to access CitiDirect based payment services in a simple way with the light weight message exchange interface.<br />
+    <br />
+    <h3><strong>List of Payment Services under CitiConnect API</strong></h3><br />
+    1. Payment Initiation<br />
+    2. Payment Status Inquiry<br />
+    3. Push Notifications<br />
+    <br />
+  version: 3.0.0
+  x-ibm-name: paymentservices
+basePath: /paymentservices/v3
+schemes:
+  - https
+x-ibm-configuration:
+  enforced: true
+  phase: realized
+  testable: true
+  cors:
+    enabled: true
+  properties:
+    FIPaymentsStops:
+      value: 'https://payments-dev-168554.nam.nsroot.net'
+      description: ''
+      encoded: false
+    PaymentInitiationAkamai:
+      value: 'https://payments-inbound-168554.cloudgsl.nam.nsroot.net/v3/router'
+      description: ''
+      encoded: false
+    Payments:
+      value: 'https://payments-inbound-168554.cloudgsl.nam.nsroot.net/v3/router'
+      description: ''
+      encoded: false
+    FIPayments:
+      value: 'https://payments-168554.namicggtd12d.nam.nsroot.net'
+      description: ''
+      encoded: false
+    PaymentInquiry-ECS:
+      value: 'https://payment-inquiry-168554.namicggtd12d.nam.nsroot.net'
+      description: ''
+      encoded: false
+    PaymentInitiation:
+      value: 'https://payments-inbound-168554.cloudgsl.nam.nsroot.net/v3/router'
+      description: ''
+      encoded: false
+    BE-EnquiriesService:
+      description: ''
+      encoded: false
+      value: 'https://sit2citiconnectbeservices.nam.nsroot.net/citi-connect-war/services/CitiConnectInquiriesService'
+  catalogs:
+    UAT1:
+      properties:
+        BE-EnquiriesService: 'https://payment-inquiry-ms-uat-168554.namicgswd11u.nam.nsroot.net/paymentservices/v3/inquiry'
+        PaymentInitiation: 'https://payments-inbound-uat-168554.nam.nsroot.net/v3/router'
+        PaymentInquiry-ECS: 'https://payment-inquiry-uat-168554.namicgswd10u.nam.nsroot.net'
+        FIPayments: 'https://payments-uat-168554.namicgswd10u.nam.nsroot.net'
+        Payments: 'https://payments-inbound-uat-168554.nam.nsroot.net/v3/router'
+        PaymentInitiationAkamai: 'https://payments-inbound-uat-168554.wlb3.nam.nsroot.net/v3/router'
+        FIPaymentsStops: 'https://payments-uat-168554.nam.nsroot.net'
+    SIT5:
+      properties:
+        BE-EnquiriesService: 'https://payment-inquiry-ms-168554.namicggtd10d.nam.nsroot.net/paymentservices/v3/inquiry'
+        PaymentInitiation: 'https://payments-inbound-dev-168554.nam.nsroot.net/v3/router'
+        PaymentInquiry-ECS: 'https://payment-inquiry-168554.namicggtd12d.nam.nsroot.net'
+        FIPayments: 'https://payments-168554.namicggtd12d.nam.nsroot.net'
+        Payments: 'https://payments-inbound-dev-168554.nam.nsroot.net/v3/router'
+        PaymentInitiationAkamai: 'https://payments-inbound-dev-168554.wlb3.nam.nsroot.net/v3/router'
+        FIPaymentsStops: 'https://payments-dev-168554.nam.nsroot.net'
+    Sandbox:
+      properties:
+        BE-EnquiriesService: 'https://payment-inquiry-ms-168554.namicgswd11u.nam.nsroot.net/paymentservices/v3/inquiry'
+        PaymentInitiation: 'https://payments-inbound-cte-168554.nam.nsroot.net/v3/router'
+        PaymentInquiry-ECS: 'https://payment-inquiry-cte-168554.namicgswd12u.nam.nsroot.net'
+        FIPayments: 'https://payments-cte-168554.namicgswd12u.nam.nsroot.net'
+        Payments: 'https://payments-inbound-cte-168554.nam.nsroot.net/v3/router'
+        PaymentInitiationAkamai: 'https://payments-inbound-cte-168554.wlb3.nam.nsroot.net/v3/router'
+        FIPaymentsStops: 'https://payments-cte-168554.nam.nsroot.net'
+    PROD:
+      properties:
+        BE-EnquiriesService: 'https://payment-inquiry-legacy-168554.cloudgsl.nam.nsroot.net/paymentservices/v3/inquiry'
+        PaymentInitiation: 'https://payments-inbound-168554.cloudgsl.nam.nsroot.net/v3/router'
+        PaymentInquiry-ECS: 'https://payment-inquiry-168554.cloudgsl.nam.nsroot.net'
+        FIPayments: 'https://payments-168554.nam.nsroot.net'
+        Payments: 'https://payments-inbound-168554.cloudgsl.nam.nsroot.net/v3/router'
+        PaymentInitiationAkamai: 'https://payments-inbound-168554.wlb3.nam.nsroot.net/v3/router'
+        FIPaymentsStops: 'https://payments-168554.nam.nsroot.net'
+    PTE:
+      properties:
+        BE-EnquiriesService: 'https://payment-inquiry-ms-pte-168554.namicgswd12u.nam.nsroot.net/paymentservices/v3/inquiry'
+        PaymentInitiation: 'https://payments-inbound-pte-wip-168554.cloudgsl.nam.nsroot.net/v3/router'
+        PaymentInquiry-ECS: 'https://payment-inquiry-pte-168554.namicgswd12u.nam.nsroot.net'
+        FIPayments: 'https://payments-pte-168554.namicgswd12u.nam.nsroot.net'
+        Payments: 'https://payments-inbound-pte-wip-168554.cloudgsl.nam.nsroot.net/v3/router'
+        PaymentInitiationAkamai: 'https://payments-inbound-pte-168554.wlb3.nam.nsroot.net/v3/router'
+        FIPaymentsStops: 'https://payments-pte-wip-168554.nam.nsroot.net'
+    UAT2:
+      properties:
+        PaymentInquiry-ECS: 'https://payment-inquiry-uat-168554.namicgswd10u.nam.nsroot.net'
+        FIPayments: 'https://payments-uat-168554.namicgswd10u.nam.nsroot.net'
+        PaymentInitiation: 'https://payments-inbound-uat-168554.nam.nsroot.net/v3/router'
+        PaymentInitiationAkamai: 'https://payments-inbound-uat-168554.wlb3.nam.nsroot.net/v3/router'
+        FIPaymentsStops: 'https://payments-uat-168554.nam.nsroot.net'
+  externalDocs: []
+  attachments: []
+  gateway: datapower-gateway
+  assembly:
+    execute:
+      - operation-switch:
+          title: operation-switch
+          case:
+            - operations:
+                - verb: post
+                  path: /payment/initiation
+              execute:
+                - switch:
+                    title: switch
+                    case:
+                      - condition: apim.getvariable('request.headers.content-type')=='application/json'
+                        execute:
+                          - gatewayscript:
+                              title: gatewayscript
+                              version: 1.0.0
+                              source: "apim.setvariable(\"request.headers.sourceContent\",\"json\");\r\napim.setvariable(\"message.headers.sourceContent\",\"json\");\r\napim.setvariable(\"request.headers.portalTraffic\",\"N\");\r\napim.setvariable(\"message.headers.portalTraffic\",\"N\");\r\napim.setvariable(\"request.headers.Content-Type\",\"application/json\");\r\napim.setvariable(\"message.headers.Content-Type\",\"application/json\");\r\n\r\nvar clientIp = apim.getvariable(\"request.headers.x-archived-client-ip\");\r\napim.setvariable(\"message.headers.clientIpAddress\",clientIp);\r\napim.setvariable(\"request.headers.clientIpAddress\",clientIp);\r\n\r\n\r\nvar appname = apim.getvariable(\"request.headers.clientapp_name\");\r\nif(\"ccapidevportal_internal\" == appname){\r\n\tapim.setvariable(\"request.headers.portalTraffic\",\"Y\");\r\n\tapim.setvariable(\"message.headers.portalTraffic\",\"Y\");\r\n}\r\n"
+                      - condition: apim.getvariable('request.headers.content-type')=='application/xml'
+                        execute:
+                          - gatewayscript:
+                              title: gatewayscript
+                              version: 1.0.0
+                              source: "apim.setvariable(\"request.headers.sourceContent\",\"xml\");\r\napim.setvariable(\"message.headers.sourceContent\",\"xml\");\r\napim.setvariable(\"request.headers.portalTraffic\",\"N\");\r\napim.setvariable(\"message.headers.portalTraffic\",\"N\");\r\n\r\nvar clientIp = apim.getvariable(\"request.headers.x-archived-client-ip\");\r\napim.setvariable(\"message.headers.clientIpAddress\",clientIp);\r\napim.setvariable(\"request.headers.clientIpAddress\",clientIp);\r\n\r\n\r\nvar appname = apim.getvariable(\"request.headers.clientapp_name\");\r\nif(\"ccapidevportal_internal\" == appname){\r\n\tapim.setvariable(\"request.headers.portalTraffic\",\"Y\");\r\n\tapim.setvariable(\"message.headers.portalTraffic\",\"Y\");\r\n}"
+                    version: 1.0.0
+                - switch:
+                    title: switch
+                    case:
+                      - condition: apim.getvariable('request.headers.icg-akamai-b2b-flag')=='true'
+                        execute:
+                          - proxy:
+                              title: proxy
+                              timeout: 60
+                              verb: keep
+                              cache-response: protocol
+                              cache-ttl: 900
+                              version: 1.0.0
+                              tls-profile: citiconnect-ssl-profile
+                              target-url: $(PaymentInitiationAkamai)
+                      - otherwise:
+                          - proxy:
+                              title: proxy
+                              timeout: 60
+                              verb: keep
+                              cache-response: protocol
+                              cache-ttl: 900
+                              version: 1.0.0
+                              tls-profile: citiconnect-ssl-profile
+                              target-url: $(PaymentInitiation)
+                    version: 1.0.0
+            - operations:
+                - verb: post
+                  path: /payment/inquiry
+              execute:
+                - proxy:
+                    title: proxy
+                    timeout: 60
+                    verb: keep
+                    cache-response: protocol
+                    cache-ttl: 900
+                    version: 1.0.0
+                    tls-profile: citiconnect-ssl-profile
+                    target-url: $(BE-EnquiriesService)
+                    stop-on-error: []
+            - operations:
+                - verb: get
+                  path: '/payment/inquiry/{EndToEndId}'
+              execute:
+                - proxy:
+                    title: proxy
+                    timeout: 60
+                    verb: keep
+                    cache-response: protocol
+                    cache-ttl: 900
+                    version: 1.0.0
+                    target-url: '$(BE-EnquiriesService)/{EndToEndId}'
+                    secure-gateway: false
+                    tls-profile: citiconnect-ssl-profile
+            - operations:
+                - verb: get
+                  path: /payment/inquiry
+              execute:
+                - proxy:
+                    title: Invoke-PSIGET-GREENEndPt
+                    timeout: 60
+                    verb: keep
+                    cache-response: protocol
+                    cache-ttl: 900
+                    version: 1.0.0
+                    tls-profile: citiconnect-ssl-profile
+                    target-url: $(BE-EnquiriesService)
+            - operations:
+                - verb: post
+                  path: /payment/enhancedinquiry
+              execute:
+                - proxy:
+                    title: proxy
+                    timeout: 60
+                    verb: keep
+                    cache-response: protocol
+                    cache-ttl: 900
+                    version: 1.0.0
+                    tls-profile: citiconnect-ssl-profile
+                    target-url: $(PaymentInquiry-ECS)$(request.path)
+            - operations:
+                - verb: post
+                  path: /payments/stops
+              execute:
+                - proxy:
+                    title: proxy
+                    timeout: 60
+                    verb: keep
+                    cache-response: protocol
+                    cache-ttl: 900
+                    version: 1.0.0
+                    tls-profile: citiconnect-ssl-profile
+                    target-url: $(FIPaymentsStops)/v3/payments/stops
+            - operations:
+                - verb: post
+                  path: /payments/reconfirmations
+              execute:
+                - proxy:
+                    title: proxy
+                    timeout: 60
+                    verb: keep
+                    cache-response: protocol
+                    cache-ttl: 900
+                    version: 1.0.0
+                    tls-profile: citiconnect-ssl-profile
+                    target-url: $(FIPayments)/v3/payments/reconfirmations
+            - operations:
+                - verb: post
+                  path: /payments
+              execute:
+                - switch:
+                    title: switch
+                    case:
+                      - condition: apim.getvariable('request.headers.content-type')=='application/json'
+                        execute:
+                          - gatewayscript:
+                              title: gatewayscript
+                              version: 1.0.0
+                              source: "apim.setvariable(\"request.headers.sourceContent\",\"json\");\r\napim.setvariable(\"message.headers.sourceContent\",\"json\");\r\napim.setvariable(\"request.headers.portalTraffic\",\"N\");\r\napim.setvariable(\"message.headers.portalTraffic\",\"N\");\r\napim.setvariable(\"request.headers.Content-Type\",\"application/json\");\r\napim.setvariable(\"message.headers.Content-Type\",\"application/json\");\r\n\r\nvar clientIp = apim.getvariable(\"request.headers.x-archived-client-ip\");\r\napim.setvariable(\"message.headers.clientIpAddress\",clientIp);\r\napim.setvariable(\"request.headers.clientIpAddress\",clientIp);\r\n\r\n\r\nvar appname = apim.getvariable(\"request.headers.clientapp_name\");\r\nif(\"ccapidevportal_internal\" == appname){\r\n\tapim.setvariable(\"request.headers.portalTraffic\",\"Y\");\r\n\tapim.setvariable(\"message.headers.portalTraffic\",\"Y\");\r\n}\r\n"
+                      - condition: apim.getvariable('request.headers.content-type')=='application/xml'
+                        execute:
+                          - gatewayscript:
+                              title: gatewayscript
+                              version: 1.0.0
+                              source: "apim.setvariable(\"request.headers.sourceContent\",\"xml\");\r\napim.setvariable(\"message.headers.sourceContent\",\"xml\");\r\napim.setvariable(\"request.headers.portalTraffic\",\"N\");\r\napim.setvariable(\"message.headers.portalTraffic\",\"N\");\r\n\r\nvar clientIp = apim.getvariable(\"request.headers.x-archived-client-ip\");\r\napim.setvariable(\"message.headers.clientIpAddress\",clientIp);\r\napim.setvariable(\"request.headers.clientIpAddress\",clientIp);\r\n\r\n\r\nvar appname = apim.getvariable(\"request.headers.clientapp_name\");\r\nif(\"ccapidevportal_internal\" == appname){\r\n\tapim.setvariable(\"request.headers.portalTraffic\",\"Y\");\r\n\tapim.setvariable(\"message.headers.portalTraffic\",\"Y\");\r\n}"
+                    version: 1.0.0
+                - proxy:
+                    title: proxy
+                    timeout: 60
+                    verb: keep
+                    cache-response: protocol
+                    cache-ttl: 900
+                    version: 1.0.0
+                    tls-profile: citiconnect-ssl-profile
+                    target-url: $(Payments)?pvt=true
+      - activity-log:
+          title: activity-log
+          content: header
+          error-content: header
+          version: 1.0.0
+    catch: []
+  categories:
+    - 'operation: Enhanced Payment Status Inquiry'
+    - 'operation: Payment Status Inquiry'
+    - 'operation: Payment Initiation'
+    - 'operation: Push Notification'
+tags: []
+securityDefinitions:
+  Client ID:
+    description: ''
+    in: query
+    name: client_id
+    type: apiKey
+  Client Credentials:
+    type: oauth2
+    flow: application
+    scopes:
+      /authenticationservices/v1: Default scope
+    tokenUrl: $(catalog.url)/authenticationservices/v1/oauth/token
+    description: ''
+    x-scopeValidate:
+      tls-profile: citi-direct-ssl-profile
+paths:
+  '/payment/inquiry/{EndToEndId}':
+    get:
+      responses:
+        '200':
+          description: 200 OK
+      parameters:
+        - name: EndToEndId
+          type: string
+          required: true
+          in: path
+          description: 'Unique identification assigned by the initiating party to clearly identify the transaction. This Identification is passed on, unchanged, throughout the entire end-to-end chain'
+      summary: ''
+  /payment/inquiry:
+    post:
+      responses:
+        '200':
+          description: 200 OK
+      parameters:
+        - name: body
+          required: false
+          in: body
+          schema:
+            type: object
+          description: 'EndToEndId( required) Unique identification assigned by the initiating party to clearly identify the transaction. This Identification is passed on, unchanged, throughout the entire end-to-end chain. CreDt Date when the payment initiation started. The date format  is: YYYY-MM-DD. InstdAmt, Ccy Amount of money transferred between the debtor and the creditor before any deduction of charges is made. This is expressed in the currency that is specified by the initiating party. ReqdExctnDt Date that the initiating party requests that the clearing agent process the payment.'
+      description: '<h2><strong> Payment Status inquiry </strong></h2> <br /><br />This service allows you to access the status of your payments where it generates payment details with status of the payment transaction. <br /><br /><h3><strong>How to initiate to Payment Status Inquiry</strong></h3><br />To initiate status inquiry to CitiConnect API, you must perform the following tasks in your source code:<br /><br />1. Authenticate to CitiConnect API (go To link)<br />2. Make an API call by specifying the Payment Status Inquiry service URL. <br />3. Specify your request headers. <br />4. Specify all mandatory values in the XML file at the minimum. Then sign and encrypt the payload in the body of the request with mandatory header values.<br />5. Review further status using ?Payment Status Inquiry? API.<br /><br />  <div class="table-content service-table">               <div class="table-row table-header">                 <div class="table-column">Verb</div>                 <div class="table-column">Service URL</div>               </div>               <div class="table-row">                 <div class="btn btn-post">POST</div>                 <div class="table-column">                      <p>https://tts.{env_name1}.apib2b.citi.com/citiconnect/{env_name2}/paymentservices/v1/payment/inquiry?client_id={client_id}                    <div class="table-content bordered-table">                             <div class="table-row">                       <div class="table-column">CTE Environment</div>                       <div class="table-column">{env_name1} = sandbox , {env_name2} = sb </div>                     </div>                     <div class="table-row">                       <div class="table-column">PROD Environment</div>                       <div class="table-column">{env_name1} = NO value , {env_name2} = prod </div>                     </div>                     <div class="table-row">                       <div class="table-column">API Client</div>                       <div class="table-column">client_id = API Client ID shared </div>                     </div>                   </div>                 </div>               </div>             </div>   <br /><h3><strong>Parameters</strong></h3><br /><br /> <h3><strong>Headers</strong></h3>  <br /><br />i.Content-Type( required)<br />ii.Authorization ( required)<br /><br /> <h3><strong>Body </strong></h3><br /><br /><h3><strong>i.EndToEndId( required): </strong></h3>Unique identification assigned by the initiating party to clearly identify the transaction. This Identification is passed on, unchanged, throughout the entire end-to-end chain.<br /><br /><h3><strong>ii.CreDt:</strong></h3> Date when the payment initiation started. The date format  is: YYYY-MM-DD.<br /><br /><h3><strong>iii.InstdAmt, Ccy : </strong></h3>Amount of money transferred between the debtor and the creditor before any deduction of charges is made. This is expressed in the currency that is specified by the initiating party.<br /><br /><h3><strong>iv. ReqdExctnDt : </strong></h3>Date that the initiating party requests that the clearing agent process the payment.'
+      summary: Payment Status Inquiry
+    get:
+      responses:
+        '200':
+          description: 200 OK
+      summary: Payment Status Inquiry
+      parameters:
+        - name: endToEndId
+          type: string
+          required: false
+          in: query
+        - name: globalTranNo
+          type: string
+          required: false
+          in: query
+        - name: creationDate
+          type: string
+          required: false
+          in: query
+        - name: amount
+          type: string
+          required: false
+          in: query
+        - name: requiredExecutionDate
+          type: string
+          required: false
+          in: query
+        - name: directDebitInd
+          type: string
+          required: false
+          in: query
+      description: '<h2><strong>Payment Status inquiry- GET  </strong></h2> <br /><br />This service allows you to access the status of your payments in an innovative way where it generates payment details with status of the payment transaction. <br /><br /><h3><strong>How to initiate to Payment Status Inquiry</strong></h3><br />To initiate status inquiry to CitiConnect API, you must perform the following tasks in your source code:<br /><br />1. Authenticate to CitiConnect API <br />2. Make an API call by specifying the Payment Status Inquiry service (GET Verb) URL. <br />3. Specify your request headers. <br />4. Specify all mandatory values in the XML file at the minimum. Then sign and encrypt the payload in the body of the request with mandatory header values.<br />_5_. Review further status using ?Payment Status Inquiry(GET Verb)? API.'
+  /payment/initiation:
+    post:
+      description: "<h2><strong>Payment initiation  </strong></h2> <br /><br />This service allows you to initiate new payments by accommodating different data attributes for all the available payment methods. After the initial API request call, user receive a response that denotes whether the payment has passed the basic validations."
+      tags: []
+      summary: Payment Initiation
+      parameters:
+        - schema:
+            example: |-
+              <Request><paymentBase64>base64String</paymentBase64></Request>
+          description: Specify all mandatory values in the ISOXML V3 (pain.001.001.03) file at the minimum and encode the XML file with Base64 to place it in the <Request><paymentBase64> tag.
+          name: body
+          in: body
+      responses:
+        '200':
+          schema: {}
+          description: 200 OK
+  /payment/enhancedinquiry:
+    post:
+      responses:
+        '200':
+          description: 200 OK
+  /payments/stops:
+    post:
+      responses:
+        '202':
+          description: OK
+          schema:
+            $ref: '#/definitions/fi_response'
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/error_response'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error_response'
+        '405':
+          description: Method Not Allowed
+          schema:
+            $ref: '#/definitions/error_response'
+        '415':
+          description: Unsupported Media Type
+          schema:
+            $ref: '#/definitions/error_response'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/error_response'
+      parameters:
+        - description: this field used to identify request is for stop/recall (Example - STOP_REQUEST) FI Payments.
+          in: header
+          maxLength: 12
+          name: request_type
+          required: true
+          type: string
+        - description: Unique reference which was shared during CitiConnect API on-boarding(client_id which used during oauth token generation)
+          in: query
+          name: client_id
+          required: true
+          type: string
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/fi_cancellation_request'
+      operationId: fiPaymentCancellation
+      summary: This API allows you to initiate stop/recall FI payments in JSON and XML format.
+      consumes:
+        - application/xml
+        - application/json
+      produces:
+        - application/xml
+        - application/json
+  /payments/reconfirmations:
+    post:
+      responses:
+        '202':
+          description: Accepted
+          schema:
+            $ref: '#/definitions/fi_response'
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/error_response'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/error_response'
+        '405':
+          description: Method Not Allowed
+          schema:
+            $ref: '#/definitions/error_response'
+        '415':
+          description: Unsupported Media Type
+          schema:
+            $ref: '#/definitions/error_response'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/error_response'
+      parameters:
+        - description: This field used to identify request is for reconfirm/reject (Example - RECNFRM / RJCTCNFRM) FI Payments.
+          in: header
+          maxLength: 12
+          name: request_type
+          required: true
+          type: string
+        - description: Unique reference which was shared during CitiConnect API on-boarding(client_id which used during oauth token generation)
+          in: query
+          name: client_id
+          required: true
+          type: string
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/fi_reconfirmation_request'
+      operationId: fiPaymentReconfirmation
+      summary: This API allows you to initiate reconfirm/reject FI payments in JSON and XML format.
+  /payments:
+    post:
+      responses:
+        '200':
+          description: 200 OK
+          schema:
+            $ref: '#/definitions/payments_response'
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/payments_response'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/payments_error_response'
+        '405':
+          description: Method Not Allowed
+          schema:
+            $ref: '#/definitions/payments_error_response'
+        '415':
+          description: Unsupported Media Type
+          schema:
+            $ref: '#/definitions/payments_error_response'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/payments_error_response'
+      parameters:
+        - name: body
+          required: false
+          in: body
+          schema:
+            $ref: '#/definitions/payments_request'
+          description: Specify all mandatory values in the ISOXML V3 (pain.001.001.03) file at the minimum and encode the XML file with Base64 to place it in the <Request><paymentBase64> tag.
+security:
+  - Client Credentials:
+      - /authenticationservices/v1
+    Client ID: []
+host: $(catalog.host)
+definitions:
+  ErrorDetail:
+    properties:
+      action:
+        description: corrective action to be taken to resolve above issue
+        maxLength: 350
+        type: string
+      issue:
+        description: more details about the  issue
+        maxLength: 200
+        type: string
+    type: object
+    xml:
+      name: error
+  error_response:
+    properties:
+      errors:
+        description: Indicates actual error details with issues and corresponding actions to resolve the issue
+        items:
+          $ref: '#/definitions/ErrorDetail'
+        xml:
+          wrapped: true
+      http_code:
+        description: Indicates http status code to specify http response status
+        format: int32
+        pattern: '^[0-9]{3}$'
+        type: integer
+      status:
+        description: This field  indicates the status of the reconfirm/reject or cancel/recall request with set of values. for example- FAILED
+        maxLength: 6
+        type: string
+    type: object
+  fi_cancellation_request:
+    properties:
+      citi_reference:
+        description: This field specifies the Product processor Reference Number for the transaction that needs to be cancelled or recalled. UETR or citi_reference with interbank_settlement_date or end_to_end_id / instruction_id with interbank_settlement_date is mandatory.
+        maxLength: 32
+        type: string
+      end_to_end_id:
+        description: This is a  unique end-to-end  reference number that identifies a transaction that needs to be cancelled. UETR or citi_reference with interbank_settlement_date or end_to_end_id / instruction_id with interbank_settlement_date is mandatory.
+        maxLength: 35
+        type: string
+      instruction_id:
+        description: This is a  unique end-to-end  reference number that identifies a transaction that needs to be cancelled. UETR or citi_reference with interbank_settlement_date or end_to_end_id / instruction_id with interbank_settlement_date is mandatory.
+        maxLength: 35
+        type: string
+      interbank_settlement_date:
+        description: This field specifies the value date (yyyy-MM-dd) of the original transaction that needs to be cancelled or recalled (the date on which funds were credited to the account).
+        type: string
+      reason:
+        description: This is the four digits cancellation code (Example - DUPL) which is specified by the  customer to request to cancel the transaction
+        maxLength: 4
+        type: string
+      reason_description:
+        description: Further details on the request reason. Required for CUST and MS03 reason codes applicable to Stop and Reconfirmation services respectively.
+        maxLength: 150
+        type: string
+      uetr:
+        description: Unique End-to-end Transaction Reference (UETR) relating to a payment has been identified as being associated with a Request for Cancellation. it should follow UUID version 4 format. UETR or citi_reference with interbank_settlement_date or end_to_end_id / instruction_id with interbank_settlement_date is mandatory.
+        type: string
+    required:
+      - reason
+    type: object
+  fi_reconfirmation_request:
+    properties:
+      citi_reference:
+        description: This field specifies the Product processor Reference Number for the transaction that needs to be reconfirm/reject. UETR or citi_reference with interbank_settlement_date or instruction_id with interbank_settlement_date is mandatory.
+        maxLength: 32
+        type: string
+        xml:
+          name: ClrSysRef
+      instruction_id:
+        description: This is a unique instrution id that identifies a transaction that needs to be reconfirm/reject. UETR or citi_reference with interbank_settlement_date or instruction_id with interbank_settlement_date is mandatory.
+        maxLength: 35
+        type: string
+        xml:
+          name: InstrId
+      interbank_settlement_date:
+        description: This field specifies the value date (yyyy-MM-dd) of the original transaction that needs to be reconfirm/reject (the date on which funds were credited to the account).
+        format: date
+        type: string
+        xml:
+          name: ReqdExctnDt
+      reason:
+        description: This is the five digits reconfirm/reject code (Example DUPL) which is specified by the  customer to request to reconfirm/reject the transaction
+        maxLength: 5
+        type: string
+        xml:
+          name: Rsn
+      uetr:
+        description: Unique End-to-end Transaction Reference (UETR) relating to a payment has been identified as being associated with a Request for reconfirm/reject. It should follow UUID version 4 format. UETR or citi_reference with interbank_settlement_date or instruction_id with interbank_settlement_date is mandatory.
+        type: string
+        xml:
+          name: UETR
+    required:
+      - reason
+    type: object
+    xml:
+      name: TransacService
+  fi_response:
+    properties:
+      transaction_status:
+        $ref: '#/definitions/transaction_status_detail'
+    type: object
+  transaction_status_detail:
+    properties:
+      status:
+        description: This field  indicates the status of the reconfirm/reject or cancel/recall request with set of values. for example- ACCP for Accepted or RJCT for Rejected
+        maxLength: 4
+        type: string
+        xml:
+          name: TxSts
+      type:
+        description: This field provides additional information of the transaction when it is rejected/accepted.
+        maxLength: 500
+        type: string
+        xml:
+          name: AddtlInf
+    type: object
+    xml:
+      name: TxInfAndSts
+  payments_request:
+    properties:
+      paymentBase64:
+        description: Base64 encoded string of ISO XML payment initiation input xml
+        format: byte
+        type: string
+    required:
+      - paymentBase64
+    type: object
+  payments_response:
+    properties:
+      psrDocument:
+        description: Base64 encoded string of ISO XML payment initiation response xml
+        format: byte
+        type: string
+    required:
+      - psrDocument
+    type: object
+  payments_error_response:
+    properties:
+      correlationId:
+        description: input request tracking unique id
+        type: string
+      message:
+        description: message providing information about error
+        type: string
+      status:
+        description: error status code
+        type: string
+    type: object

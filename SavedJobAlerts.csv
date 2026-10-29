@@ -1,0 +1,2 @@
+ALERT_PARAMETERS,QUERY_CONTEXT,SAVED_SEARCH_ID
+"{channels=[INAPP_NOTIFICATION, EMAIL], frequency=DAILY}","{keywords=#ai_banking_9999, searchLocation={com.linkedin.jobs.matching.SpecificSearchLocation={geoLocations=[{geo=urn:li:geo:103644278}]}}, facets={segmentAttributes=[]}}",8316529682

@@ -1,0 +1,147 @@
+<html>
+<head>
+  <title>Ever my thing you need to know about zero trust </title>
+  <style>
+    body {
+      margin: 0 auto;
+      width: 744px;
+      font-family: Source Serif Pro, serif;
+      line-height: 32px;
+      font-weight: 400;
+      color: rgba(0, 0, 0, 0.7);
+      font-size: 21px;
+    }
+    h1, h2, h3 {
+      font-family: Source Sans Pro, Helvetica, Arial, sans-serif;
+    }
+    h1 a, h1 a:visited {
+      color: inherit;
+      text-decoration: none;
+    }
+    h1 {
+      line-height: 48px;
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.85);
+      font-size: 42px;
+      margin: 32px 0 20px;
+    }
+    h2 {
+      line-height: 32px;
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.85);
+      font-size: 26px;
+      margin: 28px 0;
+    }
+    h3 {
+      line-height: 28px;
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.85);
+      font-size: 21px;
+      margin: 24px 0;
+    }
+    p {
+      margin: 32px 0;
+    }
+    .created, .published {
+      color: rgba(0, 0, 0, 0.55);
+      font-size: 15px;
+      line-height: 15px;
+      margin: 20px 0;
+    }
+    .created + .published {
+      margin-top: -12px;
+    }
+    blockquote {
+      font-family: Georgia, Source Serif Pro, serif;
+      font-style: italic;
+      font-size: 24px;
+      line-height: 36px;
+      margin: 48px 120px;
+      text-align: center;
+    }
+    a {
+      word-wrap: break-word;
+      outline: none;
+      text-decoration: none;
+      background-color: transparent;
+      border: 0;
+      color: #008CC9;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    a:visited {
+      color: #8C68CB;
+    }
+    .center {
+      text-align: center;
+    }
+    iframe {
+      display: block;
+      margin: 44px auto;
+    }
+    *:not(pre) + pre, pre:first-of-type {
+      margin-top: 32px;
+      padding-top: 32px;
+    }
+    pre:only-of-type {
+      margin: 32px 0;
+      padding: 32px;
+    }
+    pre {
+      background: #F3F6F8;
+      overflow-x: auto;
+      display: block;
+      font-size: 13px;
+      font-family: monospace;
+      line-height: 13px;
+      padding: 0 32px 32px;
+      white-space: pre;
+    }
+    a.embedded {
+      background: #F3F6F8;
+      display: block;
+      padding: 32px;
+      margin: 32px 0;
+    }
+    img {
+      height: auto;
+      max-width: 100%;
+    }
+    .slate-image-embed__resize-full-width img {
+      width: 100%;
+    }
+    .series-logo {
+      width: 48px;
+      height: 48px;
+      box-sizing: border-box;
+      background-clip: content-box;
+      border: 4px solid transparent;
+      border-radius: 6px;
+      object-fit: scale-down;
+      float: left;
+    }
+    .series-title {
+      font-size: 16px;
+      font-weight: 600;
+      vertical-align: top;
+    }
+    .series-description {
+      color: rgba(0,0,0,.6);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+    }
+    div {
+      margin: 32px 0;
+    }
+  </style>
+</head>
+<body>
+    <img src="https://media.licdn.com/mediaD4E12AQFKUQhk6iEQrg" alt="James Burvel O’Callaghan III" title="James Burvel O’Callaghan III" />
+      <h1>Ever my thing you need to know about zero trust </h1>
+    <p class="created">Created on 2025-11-06 16:19</p>
+  <p class="published">Published on ---</p>
+  <div><p># 10. Implement Zero-Trust Secret Management with HashiCorp Vault</p><p>## Status</p><p>Accepted</p><p>## Context</p><p>Our current approach to managing secrets (database connection strings, API keys, JWT signing keys) is fragmented and insecure. Secrets are stored in a combination of  files, Docker Compose files, and CI/CD environment variables. This practice has several critical drawbacks:</p><p>1.  <strong>Security Risk</strong>: Secrets are often stored in plaintext or are easily accessible to anyone with access to the CI/CD system or the host environment.  files, while not containing secrets, reveal the <em>shape</em> of our secrets, which is an information leak.</p><p>2.  <strong>Lack of Auditability</strong>: There is no central audit trail for who accessed which secret and when. This makes compliance and incident response incredibly difficult.</p><p>3.  <strong>Difficult Rotation</strong>: Secrets are static and long-lived. Rotating a compromised secret requires manual changes across multiple files and systems, followed by a full redeployment, making the process slow and error-prone.</p><p>4.  <strong>Static Credentials</strong>: We rely on static, long-lived database usernames and passwords, which, if compromised, provide long-term access to our data stores.</p><p>5.  <strong>Developer Experience</strong>: Developers often need access to production-like secrets for local development, which increases the risk of accidental leakage.</p><p>A zero-trust architecture mandates that no entity is trusted by default. This principle must extend to how our applications handle and access secrets. We need a centralized, secure, and dynamic way to manage the lifecycle of all credentials.</p><p>## Decision</p><p>We will adopt HashiCorp Vault as the single, centralized source of truth for all secrets across the entire platform.</p><p>1.  <strong>Centralization</strong>: All secrets will be removed from  files, Docker Compose files, CI/CD variables, and source code. Every microservice will be reconfigured to fetch its required secrets from Vault at startup.</p><p>2.  <strong>Authentication</strong>: Services will authenticate to Vault using the <strong>AppRole authentication method</strong>.</p><p>    -   Each service (or service instance) will be assigned a unique, non-secret .</p><p>    -   During deployment, our CI/CD pipeline will generate a single-use, wrapped  for the service instance.</p><p>    -   The service instance will use the  and unwrap the  to obtain a short-lived Vault token. This token will be used to retrieve its necessary secrets.</p><p>3.  <strong>Dynamic Database Credentials</strong>: We will implement Vault's <strong>Database Secrets Engine</strong>.</p><p>    -   Vault will be configured to connect to our databases with a high-privilege user.</p><p>    -   Microservices will no longer use static database credentials. Instead, at startup, they will request a unique, dynamically generated username and password from Vault.</p><p>    -   These credentials will have a short Time-To-Live (TTL) (e.g., 1 hour) and will be automatically revoked by Vault upon lease expiration, dramatically reducing the risk associated with compromised credentials.</p><p>4.  <strong>Secret Engines</strong>:</p><p>    -   <strong>KV v2 Secrets Engine</strong>: For static secrets like third-party API keys (e.g., Plaid, Stripe, Google Gemini), we will use the Key-Value v2 engine to enable versioning and simple key-value storage.</p><p>    -   <strong>Transit Secrets Engine</strong>: For "encryption-as-a-service," services will use the Transit engine to encrypt sensitive data before storing it in their own databases (e.g., Plaid access tokens). This ensures the application code never handles the raw encryption keys.</p><p>## Consequences</p><p>### Positive</p><p><em>   </em>*Drastically Improved Security**: Secrets are no longer hardcoded or stored in insecure locations. They are centralized, encrypted at rest, and accessed via authenticated and authorized clients.</p><p><em>   </em>*Centralized Management &amp; Auditability**: Vault provides a single control plane for managing and auditing all secret access, which is crucial for security posture and compliance.</p><p><em>   </em>*Dynamic Credentials &amp; Automatic Rotation**: The use of the Database Secrets Engine eliminates the problem of static, long-lived database passwords. Credentials become ephemeral and are automatically rotated and revoked.</p><p><em>   </em>*Reduced Attack Surface**: The TTL on secrets and tokens limits the window of opportunity for an attacker if a credential is compromised.</p><p><em>   </em>*Improved Developer Workflow**: Developers can run a local Vault instance for development, using the same secret access patterns as production without needing access to production secrets.</p><p>### Negative</p><p><em>   </em>*Increased Operational Complexity**: We are introducing a new, critical piece of infrastructure. Vault must be deployed, managed, and maintained with a high-availability configuration, as it is now a single point of failure for application startup.</p><p><em>   </em>*Application-Level Changes**: Every microservice requires modification to include a Vault client, logic for AppRole authentication, and secret fetching at startup. This is a significant, cross-cutting development effort.</p><p><em>   </em>*Increased Startup Latency**: Services will experience a slight increase in startup time as they need to perform an authentication handshake with Vault and fetch their secrets over the network before they can fully initialize.</p><p><em>   </em>*New Failure Mode**: An outage or misconfiguration of Vault can prevent services from starting or renewing their credentials, potentially leading to a cascading failure across the platform. This necessitates robust monitoring and alerting for Vault itself.</p></div>
+</body>
+</html>

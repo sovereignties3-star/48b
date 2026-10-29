@@ -1,0 +1,458 @@
+{
+  "platforms": {
+    "adp-default-corp": {
+      "id": "adp-default-corp",
+      "displayName": "Oracle Autonomous AI Data Platform - Tier 1 Enterprise",
+      "region": "us-ashburn-1",
+      "compartmentId": "ocid1.compartment.oc1..enterprise-root-compartment",
+      "lifecycleState": "ACTIVE",
+      "timeCreated": "2026-10-11T12:43:51.402Z",
+      "version": "20260430",
+      "capabilities": [
+        "SPARK_COMPUTE",
+        "MLOPS_MLFLOW",
+        "AGENT_STUDIO",
+        "DELTA_SHARE",
+        "DATA_LINEAGE",
+        "NOTEBOOK_JUPYTER"
+      ]
+    }
+  },
+  "workspaces": {
+    "ws-master-01": {
+      "workspaceKey": "ws-master-01",
+      "displayName": "Production Analytics & Autonomous Agent Workspace",
+      "description": "Primary unified data engineering, ML modeling, and sovereign agent orchestration workspace.",
+      "status": "ACTIVE",
+      "lifecycleState": "ACTIVE",
+      "timeCreated": "2026-10-11T12:43:51.402Z",
+      "timeUpdated": "2026-10-11T12:43:51.402Z",
+      "permissions": [
+        "WORKSPACE_ADMIN",
+        "MANAGE_AGENTS",
+        "DEPLOY_COMPUTE",
+        "ACCESS_DELTA_SHARE"
+      ],
+      "gitFolders": [
+        "/git/kronos-models",
+        "/git/autonomous-bridge"
+      ]
+    }
+  },
+  "agents": {
+    "agent-autonomous-copilot-01": {
+      "agentKey": "agent-autonomous-copilot-01",
+      "name": "Autonomous Financial & Data Pipeline Orchestrator",
+      "description": "Enterprise reasoning agent trained on ledger reconciliation, credit risk, and real-time Kafka ETL pipelines.",
+      "model": "meta.llama-3.3-70b-instruct",
+      "systemPrompt": "You are an autonomous OCI Data Platform specialist managing Spark clusters and Delta tables.",
+      "status": "READY",
+      "lifecycleState": "ACTIVE",
+      "diagram": {
+        "nodes": [
+          {
+            "id": "1",
+            "type": "input",
+            "label": "Financial Transaction Stream"
+          },
+          {
+            "id": "2",
+            "type": "tool",
+            "label": "Delta Lake Verification"
+          },
+          {
+            "id": "3",
+            "type": "llm",
+            "label": "Risk Analysis Engine"
+          },
+          {
+            "id": "4",
+            "type": "output",
+            "label": "Automated Ledger Settle"
+          }
+        ],
+        "edges": [
+          {
+            "from": "1",
+            "to": "2"
+          },
+          {
+            "from": "2",
+            "to": "3"
+          },
+          {
+            "from": "3",
+            "to": "4"
+          }
+        ]
+      },
+      "permissions": [
+        "EXECUTE",
+        "READ",
+        "MODIFY",
+        "DEPLOY"
+      ],
+      "timeCreated": "2026-10-11T12:43:51.402Z",
+      "timeUpdated": "2026-10-11T12:43:51.402Z"
+    }
+  },
+  "agentDeployments": {
+    "dep-a9ca87cb": {
+      "agentDeploymentKey": "dep-a9ca87cb",
+      "agentKey": "agent-autonomous-copilot-01",
+      "status": "RUNNING",
+      "endpoint": "https://adp-default-corp.oci.oraclecloud.com/agents/agent-autonomous-copilot-01/endpoint",
+      "replicaCount": 2,
+      "timeDeployed": "2026-10-11T12:43:51.402Z"
+    }
+  },
+  "agentSessions": {
+    "sess-c48f3d31": {
+      "sessionId": "sess-c48f3d31",
+      "agentKey": "agent-autonomous-copilot-01",
+      "timeCreated": "2026-10-11T12:43:51.402Z",
+      "chatHistory": [
+        {
+          "role": "user",
+          "content": "Audit the recent $500,000 Citi batch settlement against Delta tables.",
+          "timestamp": "2026-10-11T12:42:51.402Z"
+        },
+        {
+          "role": "agent",
+          "content": "Batch verification complete: 1,420 transactions cross-referenced across Citi Open Banking and Marqeta cards. 0 discrepancies found.",
+          "timestamp": "2026-10-11T12:43:21.402Z"
+        }
+      ],
+      "traces": {
+        "trace-01": {
+          "traceKey": "trace-01",
+          "steps": [
+            "Token Ingestion",
+            "Vector Index Search",
+            "Schema Query",
+            "Output Verification"
+          ],
+          "durationMs": 420,
+          "status": "SUCCESS"
+        }
+      }
+    }
+  },
+  "asyncOperations": {},
+  "auditLogs": [],
+  "bundles": {},
+  "catalogs": {},
+  "clusters": {
+    "cluster-spark-gpu-01": {
+      "clusterKey": "cluster-spark-gpu-01",
+      "name": "High-Concurrency Spark 3.5 ML Cluster",
+      "sparkVersion": "3.5.0-amzn-2026",
+      "nodeType": "VM.GPU.A10.2",
+      "numWorkers": 4,
+      "state": "RUNNING",
+      "libraries": [
+        "pyspark==3.5.0",
+        "delta-spark==3.1.0",
+        "xgboost==2.0.3",
+        "torch==2.3.0"
+      ],
+      "logs": [
+        "[2026-10-11T12:43:51.402Z] INFO SparkContext: Running Spark version 3.5.0",
+        "[2026-10-11T12:43:51.402Z] INFO BlockManagerMaster: Registered BlockManager",
+        "[2026-10-11T12:43:51.402Z] INFO DAGScheduler: Job 1024 finished: 4 partitions processed in 1.4s"
+      ],
+      "metrics": {
+        "cpuUtilization": 38.4,
+        "memoryUsageGb": 48.2,
+        "activeTasks": 16,
+        "completedTasks": 8492
+      },
+      "permissions": [
+        "RESTART",
+        "STOP",
+        "MANAGE_LIBRARIES",
+        "ATTACH_NOTEBOOK"
+      ]
+    }
+  },
+  "credentials": {},
+  "deltaShares": {
+    "sovereign_banking_federated_share": {
+      "shareKey": "sovereign_banking_federated_share",
+      "name": "sovereign_banking_federated_share",
+      "description": "Delta Sharing protocol distribution for institutional liquidity partners.",
+      "dataAssets": [
+        {
+          "schema": "fintech_analytics_gold",
+          "table": "gold_daily_settlements",
+          "status": "AVAILABLE"
+        }
+      ],
+      "timeCreated": "2026-10-11T12:43:51.402Z",
+      "permissions": [
+        "SELECT",
+        "MANAGE_ACCESS"
+      ]
+    }
+  },
+  "deltaRecipients": {
+    "citibank_global_consumer_bank": {
+      "recipientKey": "citibank_global_consumer_bank",
+      "name": "Citibank Global Consumer Banking (GCB) API Hub",
+      "tokenExpiry": "2027-10-11T12:43:51.402Z",
+      "shares": [
+        "sovereign_banking_federated_share"
+      ],
+      "timeCreated": "2026-10-11T12:43:51.402Z",
+      "permissions": [
+        "READ_SHARE"
+      ]
+    }
+  },
+  "gitRepositories": {},
+  "experiments": {
+    "exp-credit-risk-v4": {
+      "experimentId": "exp-credit-risk-v4",
+      "name": "Autonomous Credit Risk Gradient Boosting",
+      "artifactLocation": "oci://models@adp-corp/experiments/credit-risk-v4",
+      "lifecycleStage": "active",
+      "tags": {
+        "department": "Risk Management",
+        "framework": "LightGBM"
+      }
+    }
+  },
+  "experimentRuns": {
+    "run-fae4dd43": {
+      "runId": "run-fae4dd43",
+      "experimentId": "exp-credit-risk-v4",
+      "status": "FINISHED",
+      "metrics": {
+        "auc": 0.942,
+        "f1": 0.897,
+        "latency_ms": 12.4
+      },
+      "params": {
+        "max_depth": "8",
+        "learning_rate": "0.03",
+        "n_estimators": "500"
+      },
+      "tags": {
+        "git_commit": "a98f12c",
+        "env": "production"
+      },
+      "timeStarted": "2026-10-11T11:43:51.402Z"
+    }
+  },
+  "registeredModels": {
+    "AutonomousCreditRiskModel": {
+      "name": "AutonomousCreditRiskModel",
+      "description": "Production credit risk evaluator for Instant B2B Commercial line approvals.",
+      "tags": {
+        "compliance": "SOC2_TYPE_II",
+        "tier": "CRITICAL"
+      },
+      "versions": [
+        {
+          "version": "1.0.0",
+          "stage": "Production",
+          "runId": "run-fae4dd43",
+          "timeCreated": "2026-10-11T12:43:51.402Z"
+        },
+        {
+          "version": "1.1.0-rc1",
+          "stage": "Staging",
+          "runId": "run-fae4dd43",
+          "timeCreated": "2026-10-11T12:43:51.402Z"
+        }
+      ]
+    }
+  },
+  "modelDeployments": {},
+  "notebookContents": {},
+  "notebookSessions": {},
+  "roles": {},
+  "schemas": {
+    "fintech_analytics_gold": {
+      "schemaKey": "fintech_analytics_gold",
+      "name": "fintech_analytics_gold",
+      "description": "Gold-tier audited dimensional tables for regulatory capital and live treasury flows.",
+      "timeCreated": "2026-10-11T12:43:51.402Z",
+      "permissions": [
+        "SELECT",
+        "MODIFY",
+        "GRANT"
+      ]
+    }
+  },
+  "tables": {
+    "gold_daily_settlements": {
+      "tableKey": "gold_daily_settlements",
+      "schemaKey": "fintech_analytics_gold",
+      "name": "gold_daily_settlements",
+      "format": "DELTA",
+      "columns": [
+        {
+          "name": "settlement_id",
+          "type": "STRING",
+          "primaryKey": true
+        },
+        {
+          "name": "account_ref",
+          "type": "STRING"
+        },
+        {
+          "name": "amount",
+          "type": "DECIMAL(18,2)"
+        },
+        {
+          "name": "currency",
+          "type": "STRING"
+        },
+        {
+          "name": "clearing_network",
+          "type": "STRING"
+        },
+        {
+          "name": "status",
+          "type": "STRING"
+        },
+        {
+          "name": "timestamp",
+          "type": "TIMESTAMP"
+        }
+      ],
+      "rows": [
+        {
+          "settlement_id": "SET-9901",
+          "account_ref": "CITI-05329451",
+          "amount": 532000,
+          "currency": "USD",
+          "clearing_network": "FEDWIRE",
+          "status": "SETTLED",
+          "timestamp": "2026-10-11T12:43:51.402Z"
+        },
+        {
+          "settlement_id": "SET-9902",
+          "account_ref": "MARQETA-AHG-44",
+          "amount": 12540.5,
+          "currency": "USD",
+          "clearing_network": "VISA_OCT",
+          "status": "SETTLED",
+          "timestamp": "2026-10-11T12:43:51.402Z"
+        },
+        {
+          "settlement_id": "SET-9903",
+          "account_ref": "KROGER-CORP-91",
+          "amount": 89340.2,
+          "currency": "USD",
+          "clearing_network": "ACH",
+          "status": "PENDING",
+          "timestamp": "2026-10-11T12:43:51.402Z"
+        }
+      ],
+      "timeCreated": "2026-10-11T12:43:51.402Z"
+    }
+  },
+  "views": {},
+  "userSettings": {},
+  "volumes": {
+    "vol-enterprise-parquet-lake": {
+      "volumeKey": "vol-enterprise-parquet-lake",
+      "name": "Enterprise Parquet Lake",
+      "description": "High-IOPS persistent storage volume mounted across Spark nodes.",
+      "sizeBytes": 104857600,
+      "files": [
+        {
+          "path": "/data/raw_trades.csv",
+          "name": "raw_trades.csv",
+          "type": "file",
+          "size": 1024,
+          "timeCreated": "2026-10-11T12:43:51.402Z"
+        },
+        {
+          "path": "/configs/spark-defaults.conf",
+          "name": "spark-defaults.conf",
+          "type": "file",
+          "size": 412,
+          "timeCreated": "2026-10-11T12:43:51.402Z"
+        }
+      ],
+      "directories": [
+        "/data",
+        "/configs",
+        "/checkpoints",
+        "/models"
+      ],
+      "permissions": [
+        "READ",
+        "WRITE",
+        "EXECUTE",
+        "DELETE"
+      ]
+    }
+  },
+  "jobs": {},
+  "jobRuns": {},
+  "workspaceObjects": {
+    "ws-master-01": {
+      "openapi.json": {
+        "objectPath": "openapi.json",
+        "objectKey": "obj-openapi-310",
+        "type": "file",
+        "size": 2721,
+        "timeCreated": "2026-10-11T12:43:51.402Z",
+        "timeUpdated": "2026-10-11T12:43:51.402Z",
+        "content": "{\n  \"openapi\": \"3.1.0\",\n  \"info\": {\n    \"version\": \"1.0.0\",\n    \"title\": \"Sample API\",\n    \"description\": \"Buy or rent spacecrafts\"\n  },\n  \"paths\": {\n    \"/spacecrafts/{spacecraftId}\": {\n      \"parameters\": [\n        {\n          \"name\": \"spacecraftId\",\n          \"description\": \"The unique identifier of the spacecraft\",\n          \"in\": \"path\",\n          \"required\": true,\n          \"schema\": {\n            \"$ref\": \"#/components/schemas/SpacecraftId\"\n          }\n        }\n      ],\n      \"get\": {\n        \"summary\": \"Read a spacecraft\",\n        \"responses\": {\n          \"200\": {\n            \"description\": \"The spacecraft corresponding to the provided `spacecraftId`\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/Spacecraft\"\n                }\n              }\n            }\n          },\n          \"404\": {\n            \"description\": \"No spacecraft found for the provided `spacecraftId`\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/Error\"\n                }\n              }\n            }\n          },\n          \"500\": {\n            \"description\": \"Unexpected error\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/Error\"\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  },\n  \"components\": {\n    \"schemas\": {\n      \"SpacecraftId\": {\n        \"description\": \"The unique identifier of a spacecraft\",\n        \"type\": \"string\"\n      },\n      \"Spacecraft\": {\n        \"type\": \"object\",\n        \"required\": [\n          \"id\",\n          \"name\",\n          \"type\"\n        ],\n        \"properties\": {\n          \"id\": {\n            \"$ref\": \"#/components/schemas/SpacecraftId\"\n          },\n          \"name\": {\n            \"type\": \"string\"\n          },\n          \"type\": {\n            \"type\": \"string\",\n            \"enum\": [\n              \"capsule\",\n              \"probe\",\n              \"satellite\",\n              \"spaceplane\",\n              \"station\"\n            ]\n          },\n          \"description\": {\n            \"type\": \"string\"\n          }\n        }\n      },\n      \"Error\": {\n        \"type\": \"object\",\n        \"required\": [\n          \"message\"\n        ],\n        \"properties\": {\n          \"message\": {\n            \"description\": \"A human readable error message\",\n            \"type\": \"string\"\n          }\n        }\n      }\n    },\n    \"securitySchemes\": {\n      \"ApiKey\": {\n        \"type\": \"apiKey\",\n        \"in\": \"header\",\n        \"name\": \"X-Api-Key\"\n      }\n    }\n  },\n  \"security\": [\n    {\n      \"ApiKey\": []\n    }\n  ]\n}",
+        "permissions": [
+          "READ",
+          "WRITE",
+          "DELETE"
+        ]
+      },
+      "spacecrafts.json": {
+        "objectPath": "spacecrafts.json",
+        "objectKey": "obj-spacecrafts-db",
+        "type": "file",
+        "size": 1108,
+        "timeCreated": "2026-10-11T12:43:51.402Z",
+        "timeUpdated": "2026-10-11T12:43:51.402Z",
+        "content": "{\n  \"sc-orion-01\": {\n    \"id\": \"sc-orion-01\",\n    \"name\": \"Orion Exploration Vehicle\",\n    \"type\": \"capsule\",\n    \"description\": \"Deep-space exploration crew capsule engineered for lunar and martian transfer trajectories.\"\n  },\n  \"sc-voyager-01\": {\n    \"id\": \"sc-voyager-01\",\n    \"name\": \"Voyager Interstellar Explorer\",\n    \"type\": \"probe\",\n    \"description\": \"Interstellar scientific probe with plasma spectrometer and magnetometer arrays.\"\n  },\n  \"sc-starlink-01\": {\n    \"id\": \"sc-starlink-01\",\n    \"name\": \"Starlink V2 Mini-Array\",\n    \"type\": \"satellite\",\n    \"description\": \"Low-earth orbit phased-array optical satellite for global mesh communication.\"\n  },\n  \"sc-dreamchaser-01\": {\n    \"id\": \"sc-dreamchaser-01\",\n    \"name\": \"Dream Chaser Tenacity\",\n    \"type\": \"spaceplane\",\n    \"description\": \"Autonomous lifting-body spaceplane designed for reusable pressurized runway landings.\"\n  },\n  \"sc-iss-gateway-01\": {\n    \"id\": \"sc-iss-gateway-01\",\n    \"name\": \"Lunar Gateway Habitat Station\",\n    \"type\": \"station\",\n    \"description\": \"Permanent multi-module orbital habitat and refueling outpost.\"\n  }\n}",
+        "permissions": [
+          "READ",
+          "WRITE",
+          "DELETE"
+        ]
+      },
+      "notebooks/FintechPipeline.ipynb": {
+        "objectPath": "notebooks/FintechPipeline.ipynb",
+        "objectKey": "obj-f855c6d4",
+        "type": "file",
+        "size": 3410,
+        "timeCreated": "2026-10-11T12:43:51.402Z",
+        "timeUpdated": "2026-10-11T12:43:51.402Z",
+        "content": "{\"cells\":[{\"cell_type\":\"code\",\"source\":[\"# OCI AI Data Platform Spark Pipeline\\nimport pyspark\\nfrom pyspark.sql import SparkSession\\nspark = SparkSession.builder.appName('SovereignFintech').getOrCreate()\\nprint('Cluster Connected: 3.5.0')\"]}]}",
+        "permissions": [
+          "READ",
+          "WRITE",
+          "DELETE"
+        ]
+      },
+      "scripts/reconcile_accounts.py": {
+        "objectPath": "scripts/reconcile_accounts.py",
+        "objectKey": "obj-7855c97b",
+        "type": "file",
+        "size": 890,
+        "timeCreated": "2026-10-11T12:43:51.402Z",
+        "timeUpdated": "2026-10-11T12:43:51.402Z",
+        "content": "# Autonomous Reconciliation script\\nimport json\\ndef reconcile():\\n    return {\"status\": \"BALANCED\", \"variance\": 0.0}\\n",
+        "permissions": [
+          "READ",
+          "WRITE",
+          "DELETE"
+        ]
+      }
+    }
+  },
+  "parTokens": {}
+}

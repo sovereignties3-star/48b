@@ -1,0 +1,39 @@
+access-control-allow-origin		*
+cache-control		max-age=0, private, must-revalidate
+content-length		245
+content-security-policy		script-src 'strict-dynamic' 'unsafe-inline' 'self' https: 'nonce-J68VQyA+X3r5+QS8uBOW/Q=='; object-src 'none'; base-uri 'none'; frame-ancestors 'self'; report-uri https://sentry.io/api/1244199/security/?sentry_key=63e01c5b9ec44918be59cc3272db7d24&sentry_release=121521&sentry_environment=production
+content-type		application/json; charset=utf-8
+date		Thu, 02 Nov 2023 06:19:30 GMT
+etag		W/"32e1e5c571d1f639a05eb6ad3b8020b6"
+referrer-policy		strict-origin-when-cross-origin
+strict-transport-security		max-age=63072000; includeSubDomains
+vary		Accept-Encoding
+x-content-type-options		nosniff
+x-download-options		noopen
+x-frame-options		SAMEORIGIN
+x-live-mode		true
+x-permitted-cross-domain-policies		none
+x-rate-limit-limit		100
+x-rate-limit-remaining		99
+x-request-id		1-65433f72-38714a6e4c8f7a6652d8ce68
+x-runtime		0.113768
+x-xss-protection		0
+REQUEST
+accept		application/json
+content-type		application/json
+authorization		sha512-QnzcViu2ugwJy9K20JXwrnbi8RDy8Djh1p2i7OkvIwuQlbQbFDAUtfwLPbN9Uy+I8IwD9wYvx3p7q3stJqdRLQ==?aA==
+User-Agent		ReadMe-API-Explorer
+DATA
+body		{"url":"https://citibankdemobusiness.dev"}
+{
+  "id": "81af9ad6-f22f-4dc1-98eb-94a2170d2cd3",
+  "object": "webhook_endpoint",
+  "live_mode": true,
+  "url": "https://citibankdemobusiness.dev",
+  "configured_events": {},
+  "enabled": true,
+  "webhook_key": "cfEyci98VdegAZ3mA96mQ3Qb2h8LuRYfQuoZMtQUZ3XtpkJX3PvjefYKHVw4G48P",
+  "discarded_at": null,
+  "created_at": "2023-11-02T06:19:30Z",
+  "updated_at": "2023-11-02T06:19:30Z"
+}
