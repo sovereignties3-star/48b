@@ -12,35 +12,65 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Clone All Repositories into src/packages
+      - name: Fetch, Filter, and Build-Validate jocall3 Repositories
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mkdir -p src/packages
-          cd src/packages
 
-          # Fetch and clone all repos for the current repository owner
-          gh repo list ${{ github.repository_owner }} --limit 1000 --json name -q '.[].name' | while read -r repo; do
-            if [ "$repo" != "${{ github.event.repository.name }}" ]; then
-              echo "Cloning ${{ github.repository_owner }}/$repo..."
-              git clone "https://github.com/${{ github.repository_owner }}/$repo.com" "$repo" || git clone "https://github.com/${{ github.repository_owner }}/$repo" "$repo" || true
+          # Function to process an individual repository in parallel
+          process_repo() {
+            repo="$1"
+            echo "Evaluating jocall3/$repo..."
+
+            # Check file count via GitHub API tree endpoint (recursive depth)
+            FILE_COUNT=$(gh api "repos/jocall3/$repo/git/trees/HEAD?recursive=1" --jq '.tree | length' 2>/dev/null || echo "0")
+
+            if [ "$FILE_COUNT" -gt 1000 ]; then
+              echo "SKIP: jocall3/$repo exceeds file cap ($FILE_COUNT files > 1000)."
+              exit 0
             fi
-          done
 
-          # Fetch and clone all repos for jocall3 (if different owner)
-          if [ "${{ github.repository_owner }}" != "jocall3" ]; then
-            gh repo list jocall3 --limit 1000 --json name -q '.[].name' | while read -r repo; do
-              echo "Cloning jocall3/$repo..."
-              git clone "https://github.com/jocall3/$repo" "$repo" || true
-            done
-          fi
+            TARGET_DIR="src/packages/$repo"
 
-          cd ../..
+            if git clone --depth 1 "https://github.com/jocall3/$repo.com" "$TARGET_DIR" 2>/dev/null || git clone --depth 1 "https://github.com/jocall3/$repo" "$TARGET_DIR" 2>/dev/null; then
+              cd "$TARGET_DIR"
+              BUILD_SUCCESS=false
+
+              if [ -f "package.json" ]; then
+                if npm ci --ignore-scripts 2>/dev/null || npm install --ignore-scripts 2>/dev/null; then
+                  if npm run build 2>/dev/null || npm run compile 2>/dev/null || npm run prepare 2>/dev/null; then
+                    BUILD_SUCCESS=true
+                  fi
+                fi
+              elif [ -f "Makefile" ]; then
+                if make 2>/dev/null; then
+                  BUILD_SUCCESS=true
+                fi
+              else
+                BUILD_SUCCESS=true
+              fi
+
+              cd - > /dev/null
+
+              if [ "$BUILD_SUCCESS" = true ]; then
+                echo "SUCCESS: jocall3/$repo ($FILE_COUNT files) passed build validation."
+              else
+                echo "FAIL: jocall3/$repo failed build validation. Removing directory."
+                rm -rf "$TARGET_DIR"
+              fi
+            fi
+          }
+
+          export -f process_repo
+
+          # Retrieve all repo names and feed them to xargs running 16 parallel processes
+          gh repo list jocall3 --limit 4000 --json name -q '.[].name' | xargs -P 16 -I {} bash -c 'process_repo "{}"'
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 20
           registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
 
