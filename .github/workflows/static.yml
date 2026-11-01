@@ -12,6 +12,31 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Clone All Repositories into src/packages
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p src/packages
+          cd src/packages
+
+          # Fetch and clone all repos for the current repository owner
+          gh repo list ${{ github.repository_owner }} --limit 1000 --json name -q '.[].name' | while read -r repo; do
+            if [ "$repo" != "${{ github.event.repository.name }}" ]; then
+              echo "Cloning ${{ github.repository_owner }}/$repo..."
+              git clone "https://github.com/${{ github.repository_owner }}/$repo.com" "$repo" || git clone "https://github.com/${{ github.repository_owner }}/$repo" "$repo" || true
+            fi
+          done
+
+          # Fetch and clone all repos for jocall3 (if different owner)
+          if [ "${{ github.repository_owner }}" != "jocall3" ]; then
+            gh repo list jocall3 --limit 1000 --json name -q '.[].name' | while read -r repo; do
+              echo "Cloning jocall3/$repo..."
+              git clone "https://github.com/jocall3/$repo" "$repo" || true
+            done
+          fi
+
+          cd ../..
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
