@@ -1,6 +1,6 @@
 import crypto from 'crypto';
-import { activeTokens } from '../index.js';
-import { mockStore } from './qbo-full-suite.js';
+import { activeTokens } from '../index.ts';
+import { mockStore } from './qbo-full-suite.ts';
 
 export interface QuickBooksLinkedRecord {
   bridgeId: string;
