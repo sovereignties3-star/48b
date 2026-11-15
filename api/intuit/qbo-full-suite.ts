@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
-import { getActiveGoogleHmacKey, generateGoogleHmacAuthHeader } from '../google-service-key.js';
-import { ACCOUNTING_CATEGORIES } from '../../src/data/accountingCategories';
+import { getActiveGoogleHmacKey, generateGoogleHmacAuthHeader } from '../google-service-key.ts';
+import { ACCOUNTING_CATEGORIES } from '../../src/data/accountingCategories.ts';
 
 export const qboFullSuiteRouter = Router();
 
