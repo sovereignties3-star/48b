@@ -2,10 +2,10 @@ import { Router, Request, Response } from 'express';
 import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
-import { quickbooksBridgeLedger, recordBridgeEvent } from './intuit/quickbooks-bridge.js';
+import { quickbooksBridgeLedger, recordBridgeEvent } from './intuit/quickbooks-bridge.ts';
 import { activeTokens } from './index.js';
-import { syncCitiAccountsToModernTreasury, syncCitiFdxAccountsToModernTreasury } from './modern-treasury-api.js';
-import { generateFullEnvFile } from './env-manager.js';
+import { syncCitiAccountsToModernTreasury, syncCitiFdxAccountsToModernTreasury } from './modern-treasury-api.ts';
+import { generateFullEnvFile } from './env-manager.ts';
 
 export const citiApiRouter = Router();
 
