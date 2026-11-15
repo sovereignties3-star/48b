@@ -6,14 +6,13 @@ import express from 'express';
 import { createServer as createViteServer } from 'vite';
 import { app } from './src/server/app.ts';
 
-const PORT = 3000;
+// CRITICAL FIX: Use Render's dynamic PORT environment variable, fallback to 3000 locally
+const PORT = Number(process.env.PORT) || 3000;
 
 async function startServer() {
   console.log('[STARTUP] Initializing server...');
   try {
     // Guarantee ANY unmatched API, signature, or JSON request ALWAYS returns JSON and NEVER falls through to Vite SPA index.html
-
-    // Intercept any JSON client requests before Vite middleware to prevent HTML returns
     app.use((req, res, next) => {
       const acceptHeader = req.headers['accept'] || '';
       const contentTypeHeader = req.headers['content-type'] || '';
@@ -31,7 +30,7 @@ async function startServer() {
       next();
     });
 
-    // Vite middleware for development
+    // Vite middleware for development vs static serving for production
     if (process.env.NODE_ENV !== 'production') {
       console.log('[STARTUP] Creating Vite dev server...');
       const vite = await createViteServer({
@@ -49,7 +48,7 @@ async function startServer() {
     }
 
     const server = app.listen(PORT, '0.0.0.0', () => {
-      console.log(`[STARTUP] QuickBooks OAuth Server successfully listening on http://0.0.0.0:${PORT}`);
+      console.log(`[STARTUP] Server successfully listening on http://0.0.0.0:${PORT}`);
     });
 
     server.on('error', (err: any) => {
